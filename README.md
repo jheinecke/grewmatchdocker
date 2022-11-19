@@ -7,17 +7,18 @@ docker build -t grew:latest .
 
 ## Run on a treebank
 
-Replace `$MYDIR` with your directory
+Replace `$MYDIR` with your directory. The container runs using uid 1000. So the directories outside the container
+where grewmatch writes to (compiling treebank and creating tables) must be writable by uid 1000.
 
-```
+```bash
 mkdir $MYDIR/log
-chmod 777 $MYDIR/log
 mkdir $MYDIR/data
+chmod 777 $MYDIR/log $MYDIR/data
 cd $MYDIR/data
 git clone https://github.com/UniversalDependencies/UD_...
 ```
 
-add GrewMatch configuration data in two seperate files in `data/`:
+add GrewMatch configuration data in two seperate files in `$MYDIR/data/`:
 
 * `config.json` (change only the values `default`, `name` and `corpora.id`:
 ```json
@@ -38,8 +39,9 @@ add GrewMatch configuration data in two seperate files in `data/`:
 }
 ```
 
-* `lang.json` (change only the values for `id` and `directory`. For `directory` only change the name of the treebank directory and leave `/data/`):
-```
+* `lang.json` (change only the values for `id` and `directory`. For `directory` only change the name of the treebank directory and do not
+modify absolute path `/data/`):
+```json
 {
   "corpora": [
     {
