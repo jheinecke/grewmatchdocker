@@ -65,7 +65,7 @@ RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
 
 RUN opam switch && eval $(opam env)
 RUN ocamlc -v
-#RUN mkdir /home/grewmatch/grew_match_back/log
+RUN mkdir /home/grewmatch/grew_match/meta
 RUN mkdir /home/grewmatch/grew_match_back/corpora
 
 VOLUME [ "/log", "/data" ]
@@ -76,8 +76,9 @@ COPY --chown=grewmatch startscript.sh .
 #RUN ls -la
 #RUN id
 
-RUN chmod +x startscript.sh
+RUN chmod 755 startscript.sh
 
 ENV PATH=${PATH}:/home/grewmatch/.opam/4.13.1/bin
+RUN echo $PATH
 
 CMD ["/home/grewmatch/startscript.sh"]
