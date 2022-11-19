@@ -33,8 +33,7 @@ add GrewMatch configuration data in two seperate files in `$MYDIR/data/`:
     "default": "UD_Welsh-CCG@master",
     "corpora": [{
         "id": "UD_Welsh-CCG@master"
-      }
-    ]
+    }]
   }]
 }
 ```
