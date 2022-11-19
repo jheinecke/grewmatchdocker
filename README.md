@@ -54,6 +54,7 @@ add GrewMatch configuration data in two seperate files in `data/`:
 Start the docker container (replace `$MYDIR` with your directory):
 ```bash
 docker run \
+	-u 1000 \
 	-p 8000:8000 -p 8899:8899 \
 	--hostname localhost \
 	--name grewmatch \
