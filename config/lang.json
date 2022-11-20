@@ -1,9 +1,0 @@
-{
-  "corpora": [
-    {
-      "id": "SUD_French-GSD@master",
-      "config": "sud",
-      "directory": "/data/SUD_French-GSD"
-    }
-  ]
-}

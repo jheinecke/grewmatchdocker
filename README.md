@@ -7,8 +7,7 @@ docker build -t grew:latest .
 
 ## Run on a treebank
 
-Replace `$MYDIR` with your directory. The container runs using uid 1000. So the directories outside the container
-where grewmatch writes to (compiling treebank and creating tables) must be writable by uid 1000.
+Replace `$MYDIR` with your directory. The container runs using uid 1000. So the directories outside the container where grewmatch writes to (compiling treebank and creating tables) must be writable by uid 1000.
 
 ```bash
 mkdir $MYDIR/log
@@ -19,22 +18,39 @@ git clone https://github.com/UniversalDependencies/UD_...
 ```
 
 add GrewMatch configuration data in two seperate files in `$MYDIR/data/`:
+(you can add as many treebanks as you wish)
 
 * `config.json` (change only the values `default`, `name` and `corpora.id`:
 ```json
 {
-  "backend_server": "http://localhost:8899/", 
+  "backend_server": "http://localhost:8899/",
   "default": "UD_Welsh-CCG@master",
-  "groups": [{
-    "id": "gold",
-    "name": "UD_Welsh",
-    "mode": "syntax",
-    "style": "dropdown",
-    "default": "UD_Welsh-CCG@master",
-    "corpora": [{
-        "id": "UD_Welsh-CCG@master"
-    }]
-  }]
+  "groups": [
+    {
+      "id": "gold",
+      "name": "UD_Welsh-CCG",
+      "mode": "syntax",
+      "style": "dropdown",
+      "default": "UD_Welsh-CCG@master",
+      "corpora": [
+        {
+          "id": "UD_Welsh-CCG@master"
+        }
+      ]
+    },
+    {
+      "id": "gold",
+      "name": "UD_Breton-KEB",
+      "mode": "syntax",
+      "style": "dropdown",
+      "default": "UD_Breton-KEB@master",
+      "corpora": [
+        {
+          "id": "UD_Breton-KEB@master"
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -47,6 +63,11 @@ modify absolute path `/data/`):
       "id": "UD_Welsh-CCG@master",
       "config": "ud",
       "directory": "/data/UD_Welsh-CCG"
+    },
+    {
+      "id": "UD_Breton-KEB@master",
+      "config": "ud",
+      "directory": "/data/UD_Breton-KEB"
     }
   ]
 }
