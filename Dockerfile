@@ -33,19 +33,11 @@ RUN opam init --disable-sandboxing
 RUN opam switch create 4.14.0 4.14.0
 RUN eval $(opam env)
 
-#RUN ocamlc -v
-#RUN opam install --yes ssl.0.5.9  # force the version number, 0.5.10 is broken
-
 RUN opam remote add grew "http://opam.grew.fr"
-#RUN opam install --yes containers 
-#RUN opam install --yes grew grewpy
 
 RUN opam install --yes libcaml-dep2pict grew
 RUN opam install --yes fileutils ocsipersist-sqlite eliom
 
-#RUN opam install --yes libcaml-dep2pict fileutils
-#RUN opam install --yes libcaml-grew
-#RUN opam install --yes eliom
 
 
 RUN git clone https://gitlab.inria.fr/grew/grew_match_back.git
@@ -61,6 +53,14 @@ RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
 	| sed 's:<config>__TODO__:<config>/home/grewmatch/grew_match/corpora/config.json:' \
 	> /home/grewmatch/grew_match_back/gmb.conf.in
 
+# for future version of grew_match_back
+#RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
+#	| sed 's:<log>__LOG__:<log>/log:' \
+#	| sed 's:<extern>__EXTERN__:<extern>/home/grewmatch/grew_match_back/static:' \
+#	| sed 's:<corpora>__CORPORA__:<corpora>/home/grewmatch/grew_match_back/corpora:' \
+#	| sed 's:<config>__CONFIG__:<config>/home/grewmatch/grew_match/corpora/config.json:' \
+#	> /home/grewmatch/grew_match_back/gmb.conf.in
+
 
 RUN opam switch && eval $(opam env)
 RUN ocamlc -v
@@ -70,7 +70,6 @@ RUN mkdir /home/grewmatch/grew_match_back/corpora
 VOLUME [ "/log", "/data" ]
 
 EXPOSE 8000
-
 COPY --chown=grewmatch startscript.sh .
 #RUN ls -la
 #RUN id
