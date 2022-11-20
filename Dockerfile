@@ -18,11 +18,10 @@ RUN apt-get update \
 	&& apt-get install -y git \
 	&& apt-get install -y opam \
 	&& apt-get install -y make wget m4 unzip librsvg2-bin curl bubblewrap \
-	&& apt-get install -y ocaml-findlib \
 	&& apt-get install -y pkg-config openssl libssl-dev \
 	&& apt-get install -y libpcre3-dev sqlite3 zlib1g-dev \
 	&& apt-get install -y libgmp3-dev libsqlite3-dev \
-	&& apt-get install -y libcairo-ocaml-dev
+	&& apt-get install -y libcairo-dev
 
 RUN useradd -u 1000 -m -s /bin/bash grewmatch
 USER grewmatch
@@ -31,29 +30,29 @@ RUN ls -la /home/grewmatch
 WORKDIR /home/grewmatch
 
 RUN opam init --disable-sandboxing
-RUN opam switch create 4.13.1 4.13.1
+RUN opam switch create 4.14.0 4.14.0
+RUN eval $(opam env)
 
-RUN ocamlc -v
-RUN opam install --yes ssl.0.5.9  # force the version number, 0.5.10 is broken
+#RUN ocamlc -v
+#RUN opam install --yes ssl.0.5.9  # force the version number, 0.5.10 is broken
 
 RUN opam remote add grew "http://opam.grew.fr"
-RUN opam install --yes containers 
-RUN opam install --yes grew grewpy
+#RUN opam install --yes containers 
+#RUN opam install --yes grew grewpy
 
-RUN opam install --yes ocsipersist-sqlite 
-#RUN opam install --yes ocsipersist-dbm
+RUN opam install --yes libcaml-dep2pict grew
+RUN opam install --yes fileutils ocsipersist-sqlite eliom
 
-RUN opam install --yes libcaml-dep2pict fileutils
+#RUN opam install --yes libcaml-dep2pict fileutils
 #RUN opam install --yes libcaml-grew
-RUN opam install --yes eliom
+#RUN opam install --yes eliom
 
 
 RUN git clone https://gitlab.inria.fr/grew/grew_match_back.git
 RUN git clone https://gitlab.inria.fr/grew/grew_match.git
 
-RUN cat /home/grewmatch/grew_match_back/Makefile.options \
-	| sed 's/PERSISTENT_DATA_BACKEND = dbm/PERSISTENT_DATA_BACKEND = sqlite/' \
-	> m && mv m /home/grewmatch/grew_match_back/Makefile.options
+RUN sed -i 's/PERSISTENT_DATA_BACKEND = dbm/PERSISTENT_DATA_BACKEND = sqlite/' \
+	/home/grewmatch/grew_match_back/Makefile.options
 
 RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
 	| sed 's:<log>__TODO__:<log>/log:' \
@@ -78,7 +77,7 @@ COPY --chown=grewmatch startscript.sh .
 
 RUN chmod 755 startscript.sh
 
-ENV PATH=${PATH}:/home/grewmatch/.opam/4.13.1/bin
+ENV PATH=${PATH}:/home/grewmatch/.opam/4.14.0/bin
 RUN echo $PATH
 
 CMD ["/home/grewmatch/startscript.sh"]
