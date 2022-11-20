@@ -31,12 +31,13 @@ WORKDIR /home/grewmatch
 
 RUN opam init --disable-sandboxing
 RUN opam switch create 4.14.0 4.14.0
-RUN eval $(opam env)
+# TODO does not work like this, the output of opam env must be written to ENV
+# RUN eval $(opam env)
 
 RUN opam remote add grew "http://opam.grew.fr"
 
-RUN opam install --yes libcaml-dep2pict grew
-RUN opam install --yes fileutils ocsipersist-sqlite eliom
+RUN eval $(opam env) && opam install --yes libcaml-dep2pict grew
+RUN eval $(opam env) && opam install --yes fileutils ocsipersist-sqlite eliom
 
 
 
@@ -62,8 +63,10 @@ RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
 #	> /home/grewmatch/grew_match_back/gmb.conf.in
 
 
-RUN opam switch && eval $(opam env)
+#RUN opam switch && eval $(opam env)
 RUN ocamlc -v
+
+# needed to put (head/dependent) tables, compiled out of treebanks at runtime
 RUN mkdir /home/grewmatch/grew_match/meta
 RUN mkdir /home/grewmatch/grew_match_back/corpora
 
