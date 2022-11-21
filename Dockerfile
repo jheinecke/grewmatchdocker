@@ -1,10 +1,10 @@
 FROM ubuntu:20.04
 
 # build
-# docker build -t grew:latest .
+# docker build--build-arg UID=$(id -u) --build-arg GID=$(id -g)  -t grew:latest .
 
 # run
-# docker run --rm -u 1000:1000 -p 8001:8000 -p 8899:8899 --hostname localhost --name grewtest -v $(pwd)/config:/data -v $(pwd)/log:/log -it grew 
+# docker run --rm -p 8001:8000 -p 8899:8899 --hostname localhost --name grewtest -v $(pwd)/config:/data -v $(pwd)/log:/log -it grew 
 
 LABEL maintainer="Johannes Heinecke <johannes.heinecke@orange.com>"
 LABEL org.label-schema.name="Grew Match server"
@@ -24,9 +24,12 @@ RUN apt-get update \
 	&& apt-get install -y libcairo-dev
 
 RUN apt-get clean && apt-get autoremove
+
+# default uid/group, change with --build-arg UID=<newvalue>
 ARG UID=1000
 ARG GID=1000
 
+# create "local" user
 RUN groupadd -g ${GID} grew
 RUN useradd -u ${UID} -g ${GID} -m -s /bin/bash grewmatch
 USER grewmatch
@@ -34,17 +37,15 @@ RUN id
 RUN ls -la /home/grewmatch
 WORKDIR /home/grewmatch
 
+# install opam related tools/packages
 RUN opam init --disable-sandboxing
 RUN opam switch create 4.14.0 4.14.0
 # TODO does not work like this, the output of opam env must be written to ENV
 # RUN eval $(opam env)
 
-#RUN opam remote add grew "http://opam.grew.fr"
-RUN opam remote add grew "http://yd-deskin-2:8000"
-
+RUN opam remote add grew "http://opam.grew.fr"
 RUN eval $(opam env) && opam install --yes libcaml-dep2pict grew
 RUN eval $(opam env) && opam install --yes fileutils ocsipersist-sqlite eliom
-
 
 
 RUN git clone https://gitlab.inria.fr/grew/grew_match_back.git
