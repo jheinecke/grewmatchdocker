@@ -2,7 +2,7 @@
 
 ## Build
 ```
-docker build -t grew:latest .
+docker build -t grew_match:latest .
 ```
 
 ## Run on a treebank
@@ -84,4 +84,4 @@ docker run \
 	--name grewmatch \
 	-v $MYDIR/data:/data \
 	-v $MYDIR/log:/log \
-	-t grew 
+	-t grew_match

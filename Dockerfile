@@ -23,6 +23,8 @@ RUN apt-get update \
 	&& apt-get install -y libgmp3-dev libsqlite3-dev \
 	&& apt-get install -y libcairo-dev
 
+RUN apt-get clean && apt-get autoremove
+
 RUN useradd -u 1000 -m -s /bin/bash grewmatch
 USER grewmatch
 RUN id
