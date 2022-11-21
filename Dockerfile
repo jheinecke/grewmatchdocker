@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 # docker build -t grew:latest .
 
 # run
-# docker run --rm -u 1000 -p 8001:8000 -p 8899:8899 --hostname localhost --name grewtest -v $(pwd)/config:/data -v $(pwd)/log:/log -it grew 
+# docker run --rm -u 1000:1000 -p 8001:8000 -p 8899:8899 --hostname localhost --name grewtest -v $(pwd)/config:/data -v $(pwd)/log:/log -it grew 
 
 LABEL maintainer="Johannes Heinecke <johannes.heinecke@orange.com>"
 LABEL org.label-schema.name="Grew Match server"
@@ -25,8 +25,10 @@ RUN apt-get update \
 
 RUN apt-get clean && apt-get autoremove
 ARG UID=1000
+ARG GID=1000
 
-RUN useradd -u $UID -m -s /bin/bash grewmatch
+RUN groupadd -g ${GID} grew
+RUN useradd -u ${UID} -g ${GID} -m -s /bin/bash grewmatch
 USER grewmatch
 RUN id
 RUN ls -la /home/grewmatch
@@ -79,7 +81,7 @@ RUN mkdir -p /home/grewmatch/grew_match_back/static/shorten
 VOLUME [ "/log", "/data" ]
 
 EXPOSE 8000
-COPY --chown=grewmatch startscript.sh .
+COPY --chown=grewmatch:grew startscript.sh .
 
 RUN chmod 755 startscript.sh
 
