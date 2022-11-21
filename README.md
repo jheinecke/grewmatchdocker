@@ -5,9 +5,19 @@
 docker build -t grew_match:latest .
 ```
 
+The container runs using uid 1000. So the directories outside the container where grewmatch writes to (compiling treebank and creating tables) must be writable by uid 1000.
+
+Use the following to use your own uid
+
+```
+docker build --build-arg UID=$(id -u) -t grew_match:latest .
+```
+
+
+
 ## Run on a treebank
 
-Replace `$MYDIR` with your directory. The container runs using uid 1000. So the directories outside the container where grewmatch writes to (compiling treebank and creating tables) must be writable by uid 1000.
+Replace `$MYDIR` with your directory. 
 
 ```bash
 mkdir $MYDIR/log

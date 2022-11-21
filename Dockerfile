@@ -24,8 +24,9 @@ RUN apt-get update \
 	&& apt-get install -y libcairo-dev
 
 RUN apt-get clean && apt-get autoremove
+ARG UID=1000
 
-RUN useradd -u 1000 -m -s /bin/bash grewmatch
+RUN useradd -u $UID -m -s /bin/bash grewmatch
 USER grewmatch
 RUN id
 RUN ls -la /home/grewmatch
@@ -36,7 +37,8 @@ RUN opam switch create 4.14.0 4.14.0
 # TODO does not work like this, the output of opam env must be written to ENV
 # RUN eval $(opam env)
 
-RUN opam remote add grew "http://opam.grew.fr"
+#RUN opam remote add grew "http://opam.grew.fr"
+RUN opam remote add grew "http://yd-deskin-2:8000"
 
 RUN eval $(opam env) && opam install --yes libcaml-dep2pict grew
 RUN eval $(opam env) && opam install --yes fileutils ocsipersist-sqlite eliom
@@ -66,18 +68,18 @@ RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
 
 
 #RUN opam switch && eval $(opam env)
-RUN ocamlc -v
+#RUN ocamlc -v
 
 # needed to put (head/dependent) tables, compiled out of treebanks at runtime
 RUN mkdir /home/grewmatch/grew_match/meta
 RUN mkdir /home/grewmatch/grew_match_back/corpora
+# needed for save button
+RUN mkdir -p /home/grewmatch/grew_match_back/static/shorten
 
 VOLUME [ "/log", "/data" ]
 
 EXPOSE 8000
 COPY --chown=grewmatch startscript.sh .
-#RUN ls -la
-#RUN id
 
 RUN chmod 755 startscript.sh
 
