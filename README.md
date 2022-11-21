@@ -29,7 +29,7 @@ Do not forget to set the correct address for the backend-server:
   "default": "UD_Welsh-CCG@master",
   "groups": [
     {
-      "id": "gold",
+      "id": "cy",
       "name": "UD_Welsh-CCG",
       "mode": "syntax",
       "style": "dropdown",
@@ -41,7 +41,7 @@ Do not forget to set the correct address for the backend-server:
       ]
     },
     {
-      "id": "gold",
+      "id": "br",
       "name": "UD_Breton-KEB",
       "mode": "syntax",
       "style": "dropdown",
