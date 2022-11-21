@@ -20,10 +20,12 @@ git clone https://github.com/UniversalDependencies/UD_...
 add GrewMatch configuration data in two seperate files in `$MYDIR/data/`:
 (you can add as many treebanks as you wish)
 
+Do not forget to set the correct address for the backend-server:
+
 * `config.json` (change only the values `default`, `name` and `corpora.id`:
 ```json
 {
-  "backend_server": "http://localhost:8899/",
+  "backend_server": "http://<back-end-server-name>:8899/",
   "default": "UD_Welsh-CCG@master",
   "groups": [
     {
