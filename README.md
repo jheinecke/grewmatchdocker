@@ -27,12 +27,10 @@ cd $MYDIR/data
 git clone https://github.com/UniversalDependencies/UD_...
 ```
 
-add GrewMatch configuration data in two seperate files in `$MYDIR/data/`:
-(you can add as many treebanks as you wish)
+add GrewMatch configuration data in two seperate files in `$MYDIR/data/`
+(you can add as many treebanks as you wish). Do not forget to set the correct address for the backend-server.
 
-Do not forget to set the correct address for the backend-server:
-
-* `config.json` (change only the values `default`, `name` and `corpora.id`:
+* `config.json` (change only the values `default`, `name` and `corpora.id`):
 ```json
 {
   "backend_server": "http://<back-end-server-name>:8899/",
@@ -66,8 +64,7 @@ Do not forget to set the correct address for the backend-server:
 }
 ```
 
-* `lang.json` (change only the values for `id` and `directory`. For `directory` only change the name of the treebank directory and do not
-modify absolute path `/data/`):
+* `lang.json` (change only the values for `id` and `directory`. For `directory` only change the name of the treebank directory and do not modify the absolute path `/data/`):
 ```json
 {
   "corpora": [
@@ -94,3 +91,7 @@ docker run \
 	-v $MYDIR/data:/data \
 	-v $MYDIR/log:/log \
 	-t grew_match
+```
+
+Point your browser to `http://<hostname>:8000` to start using grewmatch !
+
