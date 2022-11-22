@@ -95,7 +95,7 @@ docker run \
 
 Point your browser to `http://<hostname>:8000` to start using grewmatch !
 
-## Use to transforme treebanks in UD format to SUD format and back
+## Use container to transform treebanks in UD format to SUD format and back
 
 see: https://github.com/surfacesyntacticud/
 
