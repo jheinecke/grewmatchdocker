@@ -95,3 +95,30 @@ docker run \
 
 Point your browser to `http://<hostname>:8000` to start using grewmatch !
 
+## Use to transforme treebanks in UD format to SUD format and back
+
+see: https://github.com/surfacesyntacticud/
+
+The same image can be used to grew transformations. In order to do so
+
+* clone the SUD/UD converter tools
+```
+git clone https://github.com/surfacesyntacticud/tools /path/to/surfacesyntacticud-tools
+```
+* start the container and mount the tools-directory and your treebank data
+```bash
+docker run \
+	-p 8000:8000 -p 8899:8899 \
+	--hostname localhost \
+	--name grewmatch \
+	-v $MYDIR/data:/data \
+	-v $MYDIR/log:/log \
+        -v /path/to/surfacesyntacticud-tools:/tools \
+        -v /path/to/treebanks:/treebanks \
+	-t grew_match
+```
+* open a shell in the container and run `grew transform`
+```
+docker exec -it grew_match /bin/bash
+grew transform -grs  /tools/converter/grs/fr_UD_to_SUD.grs -i /treebanks/UD_French-GSD/fr_gsd-ud-dev.conllu -o /treebanks/UD_French-GSD/fr_gsd-sud-dev.conllu
+```
