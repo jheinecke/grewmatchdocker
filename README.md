@@ -10,7 +10,7 @@ The container runs using uid 1000. So the directories outside the container wher
 Use the following to use your own uid (and group id)
 
 ```
-docker build --build-arg UID=$(id -u)  --build-arg UID=$(id -g) -t grew_match:latest .
+docker build --build-arg UID=$(id -u)  --build-arg GID=$(id -g) -t grew_match:latest .
 ```
 
 
