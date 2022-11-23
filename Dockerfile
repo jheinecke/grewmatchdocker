@@ -55,19 +55,11 @@ RUN sed -i 's/PERSISTENT_DATA_BACKEND = dbm/PERSISTENT_DATA_BACKEND = sqlite/' \
 	/home/grewmatch/grew_match_back/Makefile.options
 
 RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
-	| sed 's:<log>__TODO__:<log>/log:' \
-	| sed 's:<extern>__TODO__:<extern>/home/grewmatch/grew_match_back/static:' \
-	| sed 's:<corpora>__TODO__:<corpora>/home/grewmatch/grew_match_back/corpora:' \
-	| sed 's:<config>__TODO__:<config>/home/grewmatch/grew_match/corpora/config.json:' \
+	| sed 's:<log>__LOG__:<log>/log:' \
+	| sed 's:<extern>__EXTERN__:<extern>/home/grewmatch/grew_match_back/static:' \
+	| sed 's:<corpora>__CORPORA__:<corpora>/home/grewmatch/grew_match_back/corpora:' \
+	| sed 's:<config>__CONFIG__:<config>/home/grewmatch/grew_match/corpora/config.json:' \
 	> /home/grewmatch/grew_match_back/gmb.conf.in
-
-# for future version of grew_match_back
-#RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
-#	| sed 's:<log>__LOG__:<log>/log:' \
-#	| sed 's:<extern>__EXTERN__:<extern>/home/grewmatch/grew_match_back/static:' \
-#	| sed 's:<corpora>__CORPORA__:<corpora>/home/grewmatch/grew_match_back/corpora:' \
-#	| sed 's:<config>__CONFIG__:<config>/home/grewmatch/grew_match/corpora/config.json:' \
-#	> /home/grewmatch/grew_match_back/gmb.conf.in
 
 
 #RUN opam switch && eval $(opam env)
