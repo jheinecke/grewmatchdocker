@@ -21,7 +21,8 @@ RUN apt-get update \
 	&& apt-get install -y pkg-config openssl libssl-dev \
 	&& apt-get install -y libpcre3-dev sqlite3 zlib1g-dev \
 	&& apt-get install -y libgmp3-dev libsqlite3-dev \
-	&& apt-get install -y libcairo-dev
+	&& apt-get install -y libcairo-dev \
+	&& apt-get install -y graphviz
 
 RUN apt-get clean && apt-get autoremove
 
