@@ -1,0 +1,96 @@
+<div class="navbar" id="right-navbar">
+  <div class="navbar-inner">
+    <ul class="nav nav-pills">
+
+      <li class="active"><a class="grew-label" href="#step1" data-toggle="tab">Basic</a></li>
+      <li>               <a class="grew-label" href="#step2" data-toggle="tab">n-grams</a></li>
+      <li>               <a class="grew-label" href="#step3" data-toggle="tab">Clustering</a></li>
+      <li>               <a class="grew-label" href="#step4" data-toggle="tab">Misc</a></li>
+
+    </ul>
+  </div>
+</div>
+<div class="tab-content" id="snippets">
+
+  <div class="tab-pane active" id="step1">
+    <b>Request on graphs:</b>
+    <ul>
+      <li><a href="#" snippet-file="universal/UD/basic/search_form.pat" class="inter">Search for a <code>form</code></a></li>
+      <li><a href="#" snippet-file="universal/UD/basic/search_lemma.pat" class="inter">Search for a <code>lemma</code></a></li>
+      <li><a href="#" snippet-file="universal/UD/basic/search_upos.pat" class="inter">Search for a <code>upos</code></a></li>
+      <li><a href="#" snippet-file="universal/UD/basic/search_rel.pat" class="inter">Search for a dependency relation</a></li>
+      <li><a href="#" snippet-file="universal/UD/basic/mixed.pat" class="inter">Search for both relations and tags</a></li>
+      <li><a href="#" snippet-file="universal/UD/basic/negation.pat" class="inter">Filter with NAP (Negative Application Patterns)</a></li>
+    </ul>
+    <b>Request on metadata:</b>
+    <ul>
+      <li><a href="#" snippet-file="universal/snippets_global/sent_id.pat" class="inter">Search for a <code>sent_id</code></a></li>
+      <li><a href="#" snippet-file="universal/snippets_global/re_text.pat" class="inter">Search in full text (with regexp)</a></li>
+    </ul>
+
+  </div>
+
+  <div class="tab-pane" id="step2">
+    <ul>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/2-gram-form.pat" class="inter">Search for a bigram of words</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/2-gram-lemma.pat" class="inter">Search for a bigram of lemmas</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/2-gram-upos.pat" class="inter">Search for a bigram of POS</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/3-gram-form.pat" class="inter">Search for a trigram of words</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/3-gram-lemma.pat" class="inter">Search for a trigram of lemmas</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/3-gram-upos.pat" class="inter">Search for a trigram of POS</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/4-gram-form.pat" class="inter">Search for a 4-gram of words</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/4-gram-lemma.pat" class="inter">Search for a 4-gram of lemmas</a></li>
+      <li><a href="#" snippet-file="universal/snippets_n-grams/4-gram-upos.pat" class="inter">Search for a 4-gram of POS</a></li>
+    </ul>
+  </div>
+
+  <div class="tab-pane" id="step3">
+    <b>with a key:</b>
+    <ul>
+      <li><a href="#" clustering="GOV.upos" snippet-file="universal/snippets_clusters/upos.pat" class="inter">Cluster results by one node "upos"</a></li>
+      <li><a href="#" clustering="N.lemma" snippet-file="universal/snippets_clusters/lemma.pat" class="inter">Cluster results by one node "lemma"</a></li>
+      <li><a href="#" clustering="N.VerbForm" snippet-file="universal/snippets_clusters/verbform.pat" class="inter">Other clustering on nodes</a></li>
+      <li><a href="#" clustering="e.label" snippet-file="universal/snippets_clusters/edge.pat" class="inter">Cluster results by edge label</a></li>
+    </ul>
+    <b>with a "whether":</b>
+    <ul>
+      <li><a href="#" whether="GOV << DEP" snippet-file="universal/SUD/clustering/adjectival_mod.pat" class="inter"> Is the <code>mod</code>  relation with an <code>ADJ</code> dependent left-headed?</a></li>
+      <li><a href="#" whether="N -[det]-> D" snippet-file="universal/UD/clustering/noun.pat" class="inter"> Does <code>NOUN</code>s have a <code>det</code> dependent?</a></li>
+      <li><a href="#" whether="H -[parataxis]-> GOV" snippet-file="universal/UD/clustering/post_nsubj.pat" class="inter">Left-headed <code>nsubj</code>: is the governor in a <code>parataxis</code> construction?</a></li>
+    </ul>
+    <b>double clustering:</b>
+    <ul>
+      <li><a href="#" clustering="N.lemma" clustering2="e.label" snippet-file="universal/UD/clustering/AUX_rel.pat" class="inter">The auxiliaries and their comp</a></li>
+      <li><a href="#" clustering="N.Number" whether2="N -[det]-> S" snippet-file="universal/UD/clustering/DET_Number.pat" class="inter">NOUN without det and Number</a></li>
+      <li><a href="#" whether="GOV << DEP" whether2="GOV -[deep=expl]-> *" snippet-file="universal/UD/clustering/post_expl.pat" class="inter">[en] post verbal nsubj and expletive</a></li>
+    </ul>
+  </div>
+
+  <div class="tab-pane" id="step4">
+    <b>Constraints can be expressed on the global structure:</b>
+    <ul>
+      <li><a href="#" snippet-file="universal/snippets_global/not_projective.pat" class="inter">Search for non projective structures</a></li>
+      <li><a href="#" snippet-file="universal/snippets_global/projective.pat" class="inter">Search for projective structures</a></li>
+      <li><a href="#" snippet-file="universal/snippets_global/other.pat" class="inter">Other global constraints</a></li>
+      <li><a href="#" snippet-file="universal/snippets_global/combined.pat" class="inter">Global constraints can be combined with other clauses</a></li>
+    </ul>
+
+    <b>A few other examples of more complex requests:</b>
+    <ul>
+      <li><a href="#" snippet-file="universal/UD/misc/verb_wo_subj.pat" class="inter">Search for verbs without subject</a></li>
+      <li><a href="#" snippet-file="universal/UD/misc/unlike_coord.pat" class="inter">Coordination of unlikes</a></li>
+      <li><a href="#" snippet-file="universal/UD/misc/two_obj.pat" class="inter">Two objects on the same node</a></li>
+    </ul>
+
+    <b>Complex edges (see <a target="_blank" href="https://grew.fr/doc/pattern/#edge-clauses">Grew-doc</a>)</b>
+    <ul>
+      <li><a href="#" snippet-file="universal/SUD/complex/complex_1.pat" class="inter">Search on one edge feature</a></li>
+      <li><a href="#" snippet-file="universal/SUD/complex/complex_2.pat" class="inter">Use disjunction on edge features</a></li>
+      <li><a href="#" snippet-file="universal/SUD/complex/complex_3.pat" class="inter">Use negation on edge features</a></li>
+      <li><a href="#" snippet-file="universal/SUD/complex/complex_4.pat" class="inter">Request for absence of an edge feature</a></li>
+      <li><a href="#" snippet-file="universal/SUD/complex/complex_5.pat" class="inter">Request for presence of an edge feature</a></li>
+    </ul>
+
+  </div>
+
+</div>
