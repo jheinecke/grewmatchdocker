@@ -34,29 +34,47 @@ add GrewMatch configuration data in two seperate files in `$MYDIR/data/`
 ```json
 {
   "backend_server": "http://<back-end-server-name>:8899/",
-  "default": "UD_Welsh-CCG@master",
+  "default": "UD_Welsh-CCG@2.11",
   "groups": [
     {
-      "id": "cy",
-      "name": "UD_Welsh-CCG",
+      "id": "UD",
+      "name": "UD 2.11",
       "mode": "syntax",
-      "style": "dropdown",
-      "default": "UD_Welsh-CCG@master",
+      "style": "left_pane",
+      "default": "UD_Welsh@2.11",
       "corpora": [
         {
-          "id": "UD_Welsh-CCG@master"
+          "id": "UD_Welsh-CCG@2.11",
+          "github": "https://github.com/UniversalDependencies/UD_Welsh-CCG"
+        },
+        {
+          "id": "UD_English-EWT@2.11",
+          "github": "https://github.com/UniversalDependencies/UD_English-EWT"
+        },
+        {
+          "id": "UD_French-GSD@2.11",
+          "github": "https://github.com/UniversalDependencies/UD_French-GSD"
+        },
+        {
+          "id": "UD_Arabic-PUD@2.11",
+          "github": "https://github.com/UniversalDependencies/UD_Arabic-PUD"
+        },
+        {
+          "id": "UD_Arabic-PADT@2.11",
+          "github": "https://github.com/UniversalDependencies/UD_Arabic-PADT"
         }
       ]
     },
     {
-      "id": "br",
-      "name": "UD_Breton-KEB",
+      "id": "SUD",
+      "name": "SUD 2.11",
       "mode": "syntax",
-      "style": "dropdown",
-      "default": "UD_Breton-KEB@master",
+      "style": "left_pane",
+      "default": "SUD_French-GSD@2.11",
       "corpora": [
         {
-          "id": "UD_Breton-KEB@master"
+          "id": "SUD_French-GSD@2.11",
+          "github": "https://github.com/surfacesyntacticud/SUD_French-GSD"
         }
       ]
     }
@@ -69,14 +87,34 @@ add GrewMatch configuration data in two seperate files in `$MYDIR/data/`
 {
   "corpora": [
     {
-      "id": "UD_Welsh-CCG@master",
+      "id": "UD_Welsh-CCG@2.11",
       "config": "ud",
       "directory": "/data/UD_Welsh-CCG"
     },
     {
-      "id": "UD_Breton-KEB@master",
+      "id": "UD_English-EWT@2.11",
       "config": "ud",
-      "directory": "/data/UD_Breton-KEB"
+      "directory": "/data/UD_English-EWT"
+    },
+    {
+      "id": "UD_Arabic-PUD@2.11",
+      "config": "ud",
+      "directory": "/data/UD_Arabic-PUD"
+    },
+    {
+      "id": "UD_Arabic-PADT@2.11",
+      "config": "ud",
+      "directory": "/data/UD_Arabic-PADT"
+    },
+    {
+      "id": "UD_French-GSD@2.11",
+      "config": "ud",
+      "directory": "/data/UD_French-GSD"
+    },
+    {
+      "id": "SUD_French-GSD@2.11",
+      "config": "ud",
+      "directory": "/data/SUD_French-GSD"
     }
   ]
 }
