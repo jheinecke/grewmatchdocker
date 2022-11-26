@@ -81,6 +81,9 @@ add GrewMatch configuration data in two seperate files in `$MYDIR/data/`
   ]
 }
 ```
+Use `"style": "dropdown"` instead of `"style": "left_pane"` in order to have
+a dropdown menu ant no left-pane.
+
 
 * `lang.json` (change only the values for `id` and `directory`. For `directory` only change the name of the treebank directory and do not modify the absolute path `/data/`):
 ```json
