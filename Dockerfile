@@ -76,16 +76,24 @@ VOLUME [ "/log", "/data" ]
 
 EXPOSE 8000
 COPY --chown=grewmatch:grew startscript.sh .
-RUN mkdir /home/grewmatch/grew_match/corpora/right
 
 
 RUN wget https://gitlab.inria.fr/grew/grew_match_config/-/archive/master/grew_match_config-master.tar.gz
-RUN tar -zxvf grew_match_config-master.tar.gz \
-	&& mv grew_match_config-master/universal /home/grewmatch/grew_match/corpora/right \
-	&& rm -rf grew_match_config-master grew_match_config-master.tar.gz
+#RUN mkdir /home/grewmatch/grew_match/corpora/right
+#RUN tar -zxvf grew_match_config-master.tar.gz \
+#	&& mv grew_match_config-master/universal /home/grewmatch/grew_match/corpora/right \
+#	&& rm -rf grew_match_config-master grew_match_config-master.tar.gz
 
-COPY --chown=grewmatch:grew right_pane.html /home/grewmatch/grew_match/corpora/right
-RUN sed -i 's:"corpora/" + base:"corpora/right":' /home/grewmatch/grew_match/js/main.js
+#COPY --chown=grewmatch:grew right_pane.html /home/grewmatch/grew_match/corpora/right
+#RUN sed -i 's:"corpora/" + base:"corpora/right":' /home/grewmatch/grew_match/js/main.js
+
+RUN tar -zxvf grew_match_config-master.tar.gz
+RUN mv grew_match_config-master/universal/UD /home/grewmatch/grew_match/corpora/UD
+RUN mv grew_match_config-master/universal/SUD /home/grewmatch/grew_match/corpora/SUD
+RUN mv grew_match_config-master/universal/snippets* /home/grewmatch/grew_match/corpora/
+RUN mv grew_match_config-master/semantics/amr /home/grewmatch/grew_match/corpora/amr
+
+
 
 RUN chmod 755 startscript.sh
 
