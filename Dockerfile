@@ -41,9 +41,9 @@ WORKDIR /home/grewmatch
 # install opam related tools/packages
 RUN opam init --disable-sandboxing
 RUN opam switch create 4.14.0 4.14.0
+
 # TODO does not work like this, the output of opam env must be written to ENV
 # RUN eval $(opam env)
-
 RUN opam remote add grew "http://opam.grew.fr"
 RUN eval $(opam env) && opam install --yes libcaml-dep2pict grew
 RUN eval $(opam env) && opam install --yes fileutils ocsipersist-sqlite eliom
@@ -62,10 +62,6 @@ RUN cat /home/grewmatch/grew_match_back/gmb.conf.in__TEMPLATE \
 	| sed 's:<config>__CONFIG__:<config>/home/grewmatch/grew_match/corpora/config.json:' \
 	> /home/grewmatch/grew_match_back/gmb.conf.in
 
-
-#RUN opam switch && eval $(opam env)
-#RUN ocamlc -v
-
 # needed to put (head/dependent) tables, compiled out of treebanks at runtime
 RUN mkdir /home/grewmatch/grew_match/meta
 RUN mkdir /home/grewmatch/grew_match_back/corpora
@@ -79,20 +75,11 @@ COPY --chown=grewmatch:grew startscript.sh .
 
 
 RUN wget https://gitlab.inria.fr/grew/grew_match_config/-/archive/master/grew_match_config-master.tar.gz
-#RUN mkdir /home/grewmatch/grew_match/corpora/right
-#RUN tar -zxvf grew_match_config-master.tar.gz \
-#	&& mv grew_match_config-master/universal /home/grewmatch/grew_match/corpora/right \
-#	&& rm -rf grew_match_config-master grew_match_config-master.tar.gz
-
-#COPY --chown=grewmatch:grew right_pane.html /home/grewmatch/grew_match/corpora/right
-#RUN sed -i 's:"corpora/" + base:"corpora/right":' /home/grewmatch/grew_match/js/main.js
-
-RUN tar -zxvf grew_match_config-master.tar.gz
+RUN tar -zxf grew_match_config-master.tar.gz
 RUN mv grew_match_config-master/universal/UD /home/grewmatch/grew_match/corpora/UD
 RUN mv grew_match_config-master/universal/SUD /home/grewmatch/grew_match/corpora/SUD
 RUN mv grew_match_config-master/universal/snippets* /home/grewmatch/grew_match/corpora/
 RUN mv grew_match_config-master/semantics/amr /home/grewmatch/grew_match/corpora/amr
-
 
 
 RUN chmod 755 startscript.sh
