@@ -14,7 +14,6 @@ docker build --build-arg UID=$(id -u)  --build-arg GID=$(id -g) -t grew_match:la
 ```
 
 
-
 ## Run on a treebank
 
 Replace `$MYDIR` with your directory. 
@@ -163,3 +162,31 @@ docker run \
 docker exec -it grew_match /bin/bash
 grew transform -grs  /tools/converter/grs/fr_UD_to_SUD.grs -i /treebanks/UD_French-GSD/fr_gsd-ud-dev.conllu -o /treebanks/UD_French-GSD/fr_gsd-sud-dev.conllu
 ```
+
+## use with docker-compose
+
+If you have docker-compose installed and prefer it, you can create a configuration file `docker-compose.yml` in your data
+directory similar to the following (adapt the left part of the volumes to your needs):
+
+```
+version: "3"
+services:
+    grewmatch:
+        image: grewmatch:latest
+        ports:
+            - 8000:8000
+            - 8899:8899
+        hostname: localhost
+        volumes:
+            - ./UD2.11/:/data
+            - ./log:/log
+            - /path/to/grew/surfacesyntacticud-tools/:/tools
+        restart: unless-stopped
+```
+
+and start it with:
+
+```
+docker-compose up -d
+```
+
